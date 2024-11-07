@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <%- include('./partials/head') %>
+    <title>Blog </title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+    <% if (blog) { %>
+        <div class="container mt-4">
+            <h1><%= blog.title %></h1>
+            <img src="<%= blog.coverImageUrl %>" alt="" width="100%" height="500px">
+            <p><%= blog.body %></p>
+    </div>
+    <div class="container mt-4">
+        
+        <img src="<%= blog.createdBy.profileImage %>" alt="" width="100px" height="100px"> 
+        <%= blog.createdBy.fullName %>
+        
+</div>
+
+
+    <div class="container mt-3">
+        <h1>Comments (<%= comment.length%>)</h1>
+        <% if (locals.user) { %>
+
+            <form action="/blog/comment/<%= blog._id%>" method="post">
+                <div class="mb-3">
+                  <input type="text" class="form-control" aria-describedby="content" name="content" placeholder="Enter your Comment">
+                  <button type="submit" class="btn btn-sm btn-primary">ADD</button>
+    
+                   
+                </div>
+            </form>
+         
+        <% } %>
+    </div>
+    <% } %>
+
+
+    <% if (comment) { %>
+         
+        <div class=" container mt-3">
+            <div class="mb-3">
+                
+                <% comment.forEach(data => { %>
+                 
+                    <img src="<%= data.createdBy.profileImage %>" alt="" width="50px" height="50px"> 
+                    <%= data.createdBy.fullName %> : <%= data.content %>
+                    <br>
+                    <br>
+                <% }) %>
+
+            </div>
+        </form>
+</div>
+
+
+    <% } %>
+    
+    <%- include('./partials/scripts') %>
+</body>
+</html>
